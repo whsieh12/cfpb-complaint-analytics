@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: dim_company
+    description: One row per company named in a complaint.
+    columns:
+      - name: company_key
+        tests: [unique, not_null]
+      - name: company_name
+        tests: [not_null]
+
+  - name: dim_product
+    description: One row per product / sub-product combination.
+    columns:
+      - name: product_key
+        tests: [unique, not_null]
+
+  - name: dim_issue
+    description: One row per issue / sub-issue combination.
+    columns:
+      - name: issue_key
+        tests: [unique, not_null]
+
+  - name: dim_date
+    description: Calendar day from the first to the last complaint received.
+    columns:
+      - name: date_day
+        tests: [unique, not_null]
+
+  - name: fct_complaints
+    description: One row per complaint (grain = complaint_id), keyed to the dimensions.
+    columns:
+      - name: complaint_id
+        tests: [unique, not_null]
+      - name: date_day
+        tests:
+          - not_null
+          - relationships: {arguments: {to: ref('dim_date'), field: date_day}}
+      - name: company_key
+        tests:
+          - not_null
+          - relationships: {arguments: {to: ref('dim_company'), field: company_key}}
+      - name: product_key
+        tests:
+          - not_null
+          - relationships: {arguments: {to: ref('dim_product'), field: product_key}}
+      - name: issue_key
+        tests:
+          - not_null
+          - relationships: {arguments: {to: ref('dim_issue'), field: issue_key}}

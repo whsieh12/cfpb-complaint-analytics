@@ -1,0 +1,12 @@
+# Copy to dbt/profiles.yml (that file is git-ignored) and set your own project ID.
+# Auth: run `gcloud auth application-default login` once. No keys or passwords are stored.
+cfpb_complaints:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: YOUR_GCP_PROJECT_ID
+      dataset: cfpb_analytics
+      location: US
+      threads: 4

@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw
+    description: CFPB complaints exactly as loaded from the CSV (all columns text).
+    schema: cfpb
+    tables:
+      - name: raw_complaints

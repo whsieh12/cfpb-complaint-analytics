@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_complaints
+    description: One row per CFPB complaint, typed and trimmed from the raw text table.
+    columns:
+      - name: complaint_id
+        description: CFPB complaint identifier.
+        tests:
+          - unique
+          - not_null
+      - name: received_at
+        description: When the CFPB received the complaint (UTC).
+        tests:
+          - not_null
+      - name: product
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Checking or savings account', 'Credit card', 'Mortgage']
+      - name: company
+        tests:
+          - not_null
+      - name: is_timely_response
+        description: True if the company responded on time. Null if the raw value was missing.

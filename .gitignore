@@ -1,0 +1,25 @@
+# Raw and intermediate data stay out of Git (provenance is recorded in data/README.md)
+data/raw/
+data/interim/
+# dbt
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+logs/
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+# Credentials: never commit
+*.json
+!docs/*.json
+profiles.yml
+.env
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# dbt local user id
+.user.yml
